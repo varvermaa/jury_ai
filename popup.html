@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Jury.ai v12</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<header class="header">
+  <div class="header-left">
+    <img src="icons/icon48.png" alt="Jury.ai" class="logo">
+    <div class="header-titles">
+      <span class="brand-name">Jury.ai</span>
+      <span class="brand-sub">LLM Judge</span>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px">
+    <button class="icon-btn" id="clear-btn" title="New session">&#8635;</button>
+    <button class="icon-btn" id="settings-btn" title="Settings">&#9881;</button>
+  </div>
+</header>
+<div class="settings-panel" id="settings-panel">
+  <span class="settings-label">Options</span>
+  <label class="settings-row"><input type="checkbox" id="auto-judge" checked> Auto-run judge when all responses arrive</label>
+  <label class="settings-row"><input type="checkbox" id="show-synthesis" checked> Show synthesis in verdict</label>
+  <label class="settings-row"><input type="checkbox" id="jury-panel" checked> Jury panel (use all reachable judges, not just Gemini)</label>
+  <button class="settings-save" id="settings-save">Save</button>
+  <div class="settings-tools">
+    <button class="settings-tool" id="diagnose-btn">&#129658; Diagnose providers</button>
+    <button class="settings-tool" id="debug-btn">&#128196; Debug logs</button>
+  </div>
+  <div class="diag-results hidden" id="diag-results"></div>
+  <div class="debug-panel hidden" id="debug-panel">
+    <div class="debug-head"><span>Logs (newest first)</span><button class="settings-tool" id="clear-logs-btn">Clear</button></div>
+    <div class="debug-log" id="debug-log"></div>
+  </div>
+</div>
+<div class="input-section">
+  <div class="input-wrap">
+    <textarea class="prompt-textarea" id="prompt-input" placeholder="Ask anything -- ChatGPT, Claude, Grok &amp; Gemini will all answer..." rows="4" maxlength="4000"></textarea>
+    <div class="input-footer">
+      <span class="char-count" id="char-count">0</span>
+      <button class="send-btn" id="send-btn" disabled>&#9658; Deliberate</button>
+    </div>
+  </div>
+</div>
+<div class="cards-grid" id="cards-grid"></div>
+<div class="action-bar hidden" id="action-bar">
+  <div class="judge-info">
+    <span class="judge-label">Judge:</span>
+    <span class="judge-name">&#11088; Gemini</span>
+  </div>
+  <button class="judge-btn" id="judge-btn" disabled>&#9878; Run Judge</button>
+</div>
+<div class="judge-progress hidden" id="judge-progress">
+  <div class="judge-step" id="step-1"><div class="step-dot active"></div><span>Pass 1: Compressing responses...</span></div>
+  <div class="judge-step" id="step-2"><div class="step-dot"></div><span>Pass 2: Binary verdict...</span></div>
+</div>
+<div class="verdict-panel hidden" id="verdict-panel">
+  <div class="verdict-header">
+    <span class="verdict-title">&#9878; Verdict</span>
+    <div class="winner-chip" id="winner-chip"></div>
+  </div>
+  <div class="jury-stats hidden" id="jury-stats"></div>
+  <div class="scores-row" id="scores-row"></div>
+  <div class="synthesis-box hidden" id="synthesis-box">
+    <div class="synthesis-label">Synthesis</div>
+    <div class="synthesis-text" id="synthesis-text"></div>
+  </div>
+  <details class="criteria-details">
+    <summary>Full criteria breakdown</summary>
+    <div id="criteria-table-wrap"></div>
+  </details>
+</div>
+<script src="popup.js"></script>
+</body>
+</html>
